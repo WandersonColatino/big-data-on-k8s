@@ -46,7 +46,7 @@ kubens cicd && k get secret argocd-initial-admin-secret -o jsonpath="{.data.pass
 # create cluster role binding for admin user [sa]
 k create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=system:serviceaccount:cicd:argocd-application-controller -n cicd
 
-# register cluster
+# register clusters
 CLUSTER="aks-owshq-dev"
 argocd cluster add $CLUSTER --in-cluster
 
