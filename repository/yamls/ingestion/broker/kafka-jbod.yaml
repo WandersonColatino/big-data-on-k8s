@@ -82,12 +82,6 @@ spec:
       limits:
         memory: 1Gi
         cpu: "500m"
-    metricsConfig:
-      type: jmxPrometheusExporter
-      valueFrom:
-        configMapKeyRef:
-          name: zookeeper-metrics
-          key: zookeeper-metrics-config.yml
   entityOperator:
     topicOperator: {}
     userOperator: {}
