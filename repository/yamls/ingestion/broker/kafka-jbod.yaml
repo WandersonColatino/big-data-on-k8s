@@ -86,12 +86,6 @@ spec:
     topicOperator: {}
     userOperator: {}
   cruiseControl:
-    metricsConfig:
-      type: jmxPrometheusExporter
-      valueFrom:
-        configMapKeyRef:
-          name: cruise-control-metrics
-          key: metrics-config.yml
   kafkaExporter:
     topicRegex: ".*"
     groupRegex: ".*"
