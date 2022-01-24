@@ -46,12 +46,12 @@ kubens cicd && k get secret argocd-initial-admin-secret -o jsonpath="{.data.pass
 # create cluster role binding for admin user [sa]
 k create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=system:serviceaccount:cicd:argocd-application-controller -n cicd
 
-# register clusters
+# register cluster
 CLUSTER="aks-owshq-dev"
 argocd cluster add $CLUSTER --in-cluster
 
 # add repo into argo-cd repositories
-REPOSITORY="https://bitbucket.org/owshq/big-data-on-k8s.git"
+REPOSITORY="https://github.com/WandersonColatino/big-data-on-k8s.git"
 argocd repo add $REPOSITORY --username [NAME] --password [PWD] --port-forward
 ```
 
@@ -71,17 +71,17 @@ helm install kafka strimzi/strimzi-kafka-operator --namespace ingestion --versio
 helm install spark spark-operator/spark-operator --namespace processing --set image.tag=v1beta2-1.3.0-3.1.1
 
 # config maps
-k apply -f repository/yamls/ingestion/metrics/kafka-metrics-config.yaml
-k apply -f repository/yamls/ingestion/metrics/zookeeper-metrics-config.yaml
-k apply -f repository/yamls/ingestion/metrics/connect-metrics-config.yaml
-k apply -f repository/yamls/ingestion/metrics/cruise-control-metrics-config.yaml
+kubectl apply -f repository/yamls/ingestion/metrics/kafka-metrics-config.yaml
+kubectl apply -f repository/yamls/ingestion/metrics/zookeeper-metrics-config.yaml
+kubectl apply -f repository/yamls/ingestion/metrics/connect-metrics-config.yaml
+kubectl apply -f repository/yamls/ingestion/metrics/cruise-control-metrics-config.yaml
 
 # ingestion
-k apply -f repository/app-manifests/ingestion/kafka-broker.yaml
-k apply -f repository/app-manifests/ingestion/schema-registry.yaml
-k apply -f repository/app-manifests/ingestion/kafka-connect.yaml
-k apply -f repository/app-manifests/ingestion/cruise-control.yaml
-k apply -f repository/app-manifests/ingestion/kafka-connectors.yaml
+kubectl apply -f repository/app-manifests/ingestion/kafka-broker.yaml
+kubectl apply -f repository/app-manifests/ingestion/schema-registry.yaml
+kubectl apply -f repository/app-manifests/ingestion/kafka-connect.yaml
+kubectl apply -f repository/app-manifests/ingestion/cruise-control.yaml
+kubectl apply -f repository/app-manifests/ingestion/kafka-connectors.yaml
 
 # databases
 k apply -f repository/app-manifests/database/mssql.yaml
